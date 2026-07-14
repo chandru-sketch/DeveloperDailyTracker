@@ -1,0 +1,81 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Goals{% endblock %}
+
+{% block content %}
+
+<div class="goals-page">
+
+    <h1>🎯 Goals</h1>
+
+    <div class="card">
+
+        <h2>Add Goal</h2>
+
+        <form method="post">
+
+            {% csrf_token %}
+
+            {{ form.as_p }}
+
+            <button class="save-btn">
+                Add Goal
+            </button>
+
+        </form>
+
+    </div>
+
+    <div class="card">
+
+        <h2>My Goals</h2>
+
+        {% for goal in goals %}
+
+        <div class="goal-item">
+
+            <h3>{{ goal.title }}</h3>
+
+            <p>{{ goal.description }}</p>
+
+            <div class="goal-meta">
+
+                <span class="priority {{ goal.priority|lower }}">
+                    {{ goal.priority }}
+                </span>
+
+                <span class="due-date">
+                    📅 {{ goal.due_date }}
+                </span>
+
+            </div>
+
+            <div class="goal-actions">
+
+                <button class="complete-btn">
+                    ✓ Complete
+                </button>
+
+                <button class="edit-btn">
+                    ✏ Edit
+                </button>
+
+                <button class="delete-btn">
+                    🗑 Delete
+                </button>
+
+            </div>
+
+        </div>
+
+        {% empty %}
+
+        <p>No goals yet.</p>
+
+        {% endfor %}
+
+    </div>
+
+</div>
+
+{% endblock %}

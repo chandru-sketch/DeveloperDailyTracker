@@ -1,0 +1,132 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>{% block title %}Developer Daily Tracker{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+
+<body class="{% if request.user.is_authenticated and request.user.settings.theme == 'dark' %}dark-mode{% endif %}">
+
+{% if user.is_authenticated %}
+
+<nav class="navbar">
+
+    <div class="logo">
+        DevTracker
+    </div>
+
+    <ul class="nav-links">
+
+        <li>
+            <a href="{% url 'dashboard' %}"
+               class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                Dashboard
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'progress' %}"
+               class="{% if request.resolver_match.url_name == 'progress' %}active{% endif %}">
+                Progress
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'goals' %}"
+               class="{% if request.resolver_match.url_name == 'goals' %}active{% endif %}">
+                Goals
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'profile' %}"
+               class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                Profile
+            </a>
+        </li>
+
+        <li>
+            <a href="{% url 'settings' %}"
+               class="{% if request.resolver_match.url_name == 'settings' %}active{% endif %}">
+                Settings
+            </a>
+        </li>
+
+    </ul>
+
+    <div class="user-area">
+
+        <span>{{ request.user.username }}</span>
+
+        <a href="{% url 'logout' %}" class="logout-link">
+            Logout
+        </a>
+
+    </div>
+
+</nav>
+
+{% endif %}
+
+<div class="page-content">
+
+    {% block content %}
+    {% endblock %}
+
+</div>
+
+{% block scripts %}
+<script>
+
+const toggle = document.getElementById("themeToggle");
+
+if(toggle){
+
+    toggle.addEventListener("change", function(){
+
+        const theme = this.checked ? "dark" : "light";
+
+        document.body.classList.toggle("dark-mode", this.checked);
+
+        fetch("{% url 'save_theme' %}", {
+
+            method: "POST",
+
+            headers: {
+
+                "Content-Type": "application/json",
+
+                "X-CSRFToken": "{{ csrf_token }}"
+
+            },
+
+            body: JSON.stringify({
+
+                theme: theme
+
+            })
+
+        })
+
+        .then(response => response.json())
+
+        .then(data => {
+
+            console.log("Theme Saved", data);
+
+        });
+
+    });
+
+}
+
+</script>
+{% endblock %}
+
+</body>
+</html>

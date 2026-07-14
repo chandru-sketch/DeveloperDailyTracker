@@ -1,0 +1,67 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}
+Progress
+{% endblock %}
+
+{% block content %}
+
+<div class="progress-page">
+
+    <h1>📈 Progress Dashboard</h1>
+
+    <div class="progress-cards">
+
+        <div class="card">
+            <h2>70%</h2>
+            <p>Overall Progress</p>
+        </div>
+
+        <div class="card">
+            <h2>18 / 30</h2>
+            <p>Completed Days</p>
+        </div>
+
+        <div class="card">
+            <h2>7 🔥</h2>
+            <p>Current Streak</p>
+        </div>
+
+        <div class="card">
+            <h2>285</h2>
+            <p>Tasks Completed</p>
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Overall Progress</h2>
+
+        <div class="progress">
+
+            <div class="bar" style="width:70%"></div>
+
+        </div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Achievements</h2>
+
+        <ul>
+
+            <li>🏅 First Day Completed</li>
+
+            <li>🏅 7 Day Streak</li>
+
+            <li>🏅 100 Tasks Completed</li>
+
+        </ul>
+
+    </div>
+
+</div>
+
+{% endblock %}

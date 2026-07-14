@@ -1,0 +1,25 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}
+Developer Daily Tracker
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <h1>Developer Daily Tracker</h1>
+
+    <p>
+        Build better habits.
+        Learn every day.
+        Stay consistent.
+    </p>
+
+    <a href="{% url 'dashboard' %}" class="btn">
+        Start Challenge
+    </a>
+
+</div>
+
+{% endblock %}

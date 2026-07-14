@@ -1,0 +1,147 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}Settings{% endblock %}
+
+{% block content %}
+
+<div class="settings-page">
+
+    <div class="settings-header">
+        <h1>⚙️ Settings</h1>
+        <p>Customize your Developer Daily Tracker experience.</p>
+    </div>
+
+    <form method="POST">
+
+        {% csrf_token %}
+
+        <div class="settings-card">
+
+            <div class="setting-row">
+
+                <div class="setting-text">
+                    <h3>🌙 Theme</h3>
+                    <p>Select your preferred theme.</p>
+                </div>
+
+                <label class="switch">
+
+                    <input
+                        type="checkbox"
+                        id="themeToggle"
+                        {% if form.instance.theme == "dark" %}checked{% endif %}
+                    >
+
+                    <span class="slider"></span>
+
+                </label>
+
+                <input
+                    type="hidden"
+                    name="theme"
+                    id="themeValue"
+                    value="{{ form.instance.theme }}"
+                >
+
+            </div>
+
+            <div class="setting-row">
+
+                <div class="setting-text">
+                    <h3>🔔 Daily Reminder</h3>
+                    <p>Receive reminders every day.</p>
+                </div>
+
+                {{ form.daily_reminder }}
+
+            </div>
+
+            <div class="setting-row">
+
+                <div class="setting-text">
+                    <h3>📊 Weekly Report</h3>
+                    <p>Receive weekly progress reports.</p>
+                </div>
+
+                {{ form.weekly_report }}
+
+            </div>
+
+            <div class="setting-row">
+
+                <div class="setting-text">
+                    <h3>📧 Email Notifications</h3>
+                    <p>Receive notifications by email.</p>
+                </div>
+
+                {{ form.email_notifications }}
+
+            </div>
+
+            <div class="setting-row">
+
+                <div class="setting-text">
+                    <h3>👤 Public Profile</h3>
+                    <p>Allow others to view your profile.</p>
+                </div>
+
+                {{ form.profile_public }}
+
+            </div>
+
+            <hr>
+
+            <div class="setting-row">
+
+                <div class="setting-text">
+                    <h3>🔒 Change Password</h3>
+                    <p>Update your account password.</p>
+                </div>
+
+                <a href="#">
+                    Change Password
+                </a>
+
+            </div>
+
+            <div class="setting-row">
+
+                <div class="setting-text">
+                    <h3>👤 Edit Profile</h3>
+                    <p>Update your personal information.</p>
+                </div>
+
+                <a href="{% url 'profile' %}" class="primary-btn">
+                    Edit Profile
+                </a>
+
+            </div>
+
+            <div class="setting-row danger">
+
+                <div class="setting-text">
+                    <h3>🚪 Logout</h3>
+                    <p>Sign out of your account.</p>
+                </div>
+
+                <a href="{% url 'logout' %}" class="danger-btn">
+                    Logout
+                </a>
+
+            </div>
+
+            <div style="margin-top:30px;text-align:right;">
+
+                <button type="submit" class="primary-btn">
+                    💾 Save Settings
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+</div>
+
+{% endblock %}

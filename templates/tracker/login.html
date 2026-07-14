@@ -1,0 +1,98 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Login | Developer Daily Tracker</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.css" rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+
+<div class="background">
+
+    <div class="circle one"></div>
+
+    <div class="circle two"></div>
+
+    <div class="circle three"></div>
+
+</div>
+
+<div class="login-container">
+
+    <div class="login-card">
+
+        <div class="logo">
+
+            🚀
+
+            <h2>Developer Daily Tracker</h2>
+
+            <p>Welcome Back</p>
+
+        </div>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            <div class="input-box">
+
+                <i class="bi bi-person"></i>
+
+                {{ form.username }}
+
+            </div>
+
+            <div class="input-box">
+
+                <i class="bi bi-lock"></i>
+
+                {{ form.password }}
+
+            </div>
+
+            <button type="submit" class="login-btn">
+
+                Sign In
+
+            </button>
+
+        </form>
+
+        <div class="bottom">
+
+            Don't have an account?
+
+            <a href="{% url 'register' %}">
+
+                Register
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+
+</html>

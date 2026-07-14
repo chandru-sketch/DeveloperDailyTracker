@@ -1,0 +1,77 @@
+{% extends 'tracker/base.html' %}
+
+{% load static %}
+
+{% block title %}
+Profile
+{% endblock %}
+
+{% block content %}
+
+<div class="profile-container">
+
+    <div class="profile-card">
+
+        <div class="profile-image">
+            <img src="{% static 'images/default-user.png' %}" alt="Profile">
+        </div>
+
+        <h1>{{ request.user.username }}</h1>
+
+        <p>{{ request.user.email }}</p>
+
+        <div class="profile-stats">
+
+            <div class="profile-stat">
+                <h2>0</h2>
+                <span>Completed Days</span>
+            </div>
+
+            <div class="profile-stat">
+                <h2>0</h2>
+                <span>Current Streak</span>
+            </div>
+
+            <div class="profile-stat">
+                <h2>30</h2>
+                <span>Total Days</span>
+            </div>
+
+        </div>
+
+        <div class="profile-info">
+
+            <div class="row">
+                <strong>Username</strong>
+                <span>{{ request.user.username }}</span>
+            </div>
+
+            <div class="row">
+                <strong>Email</strong>
+                <span>{{ request.user.email }}</span>
+            </div>
+
+            <div class="row">
+                <strong>Member Since</strong>
+                <span>{{ request.user.date_joined|date:"d M Y" }}</span>
+            </div>
+
+        </div>
+
+        <div class="profile-buttons">
+
+            <button class="edit-btn">
+                ✏ Edit Profile
+            </button>
+
+            <button class="logout-btn">
+                🚪 Logout
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}

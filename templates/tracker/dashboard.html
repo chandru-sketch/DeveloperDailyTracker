@@ -1,0 +1,223 @@
+{% extends 'tracker/base.html' %}
+
+{% block title %}
+Developer Daily Tracker
+{% endblock %}
+
+{% block content %}
+
+<div class="layout">
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+
+        <div class="logo">
+            🚀 DevTracker
+        </div>
+
+        <nav>
+
+            <a href="{% url 'dashboard' %}"
+            class="{% if request.resolver_match.url_name == 'dashboard' %}active{% endif %}">
+                🏠 Dashboard
+            </a>
+
+            <a href="{% url 'progress' %}"
+            class="{% if request.resolver_match.url_name == 'progress' %}active{% endif %}">
+                📈 Progress
+            </a>
+
+            <a href="{% url 'goals' %}"
+            class="{% if request.resolver_match.url_name == 'goals' %}active{% endif %}">
+                🎯 Goals
+            </a>
+
+            <a href="{% url 'profile' %}"
+            class="{% if request.resolver_match.url_name == 'profile' %}active{% endif %}">
+                👤 Profile
+            </a>
+
+            <a href="{% url 'settings' %}"
+            class="{% if request.resolver_match.url_name == 'settings' %}active{% endif %}">
+                ⚙️ Settings
+            </a>
+
+        </nav>
+
+</aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+        <!-- Header -->
+        <div class="header-card">
+
+            <h1>Developer Daily Tracker</h1>
+
+            <p>
+                Welcome,
+                {{ request.user.username|default:"Developer" }}
+                👋
+            </p>
+
+            <h3>Day {{ current_day }} / 30</h3>
+
+            <div class="progress-container">
+
+                <div class="progress">
+
+                    <div class="bar"
+                         style="width: {{ progress }}%;">
+                    </div>
+
+                </div>
+
+                <div class="progress-info">
+
+                    <span>{{ completed }}/{{ total }} Completed</span>
+
+                    <span>{{ progress }}%</span>
+
+                </div>
+
+            </div>
+
+        </div>
+        
+        <div class="stats">
+
+            <div class="stat-card">
+                <h3>{{ progress }}%</h3>
+                <p>Completed</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>{{ completed }}</h3>
+                <p>Tasks Done</p>
+            </div>
+
+            <div class="stat-card">
+                <h3>{{ total }}</h3>
+                <p>Total Tasks</p>
+            </div>
+
+        </div>
+
+        <form method="POST">
+
+            {% csrf_token %}
+            
+            <div class="calendar-card">
+
+                <h2>30-Day Challenge</h2>
+
+                <div class="calendar-grid">
+
+                    {% for day in days %}
+
+                    <a href="?day={{ day.number }}"
+                    class="day-box
+                    {% if day.completed %}completed{% endif %}
+                    {% if day.current %}current{% endif %}">
+
+                        {{ day.number }}
+
+                    </a>
+
+                    {% endfor %}
+
+                </div>
+
+            </div>
+
+            <!-- Tasks -->
+            <div class="card">
+
+                <h2>📋 Today's Tasks</h2>
+
+                <div class="tasks">
+
+                    <label>{{ form.english_words }} Learn 10 English Words</label>
+
+                    <label>{{ form.english_speaking }} Speak English (20 Minutes)</label>
+
+                    <label>{{ form.reading }} Read One Technical Article</label>
+
+                    <label>{{ form.interview }} Practice 5 Interview Questions</label>
+
+                    <label>{{ form.python_topic }} Learn One Python Topic</label>
+
+                    <label>{{ form.coding_problem }} Solve 5 Coding Problems</label>
+
+                    <label>{{ form.mini_program }} Build One Mini Program</label>
+
+                    <label>{{ form.html_css_js }} HTML / CSS / JavaScript</label>
+
+                    <label>{{ form.ui_component }} Build One UI Component</label>
+
+                    <label>{{ form.sql_django }} SQL / Django</label>
+
+                    <label>{{ form.project }} Project Work</label>
+
+                    <label>{{ form.github }} GitHub Commit</label>
+
+                    <label>{{ form.typing }} Typing Practice</label>
+
+                    <label>{{ form.notes }} Write Learning Notes</label>
+
+                    <label>{{ form.revision }} Revision</label>
+
+                    <label>{{ form.sleep }} Sleep 7–8 Hours</label>
+
+                </div>
+
+            </div>
+
+            <!-- Reflection -->
+            <div class="card">
+
+                <h2>📝 Daily Reflection</h2>
+
+                <div class="form-group">
+
+                    <label>Today's Achievement</label>
+
+                    {{ form.achievement }}
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Challenges Faced</label>
+
+                    {{ form.challenges }}
+
+                </div>
+
+                <div class="form-group">
+
+                    <label>Tomorrow's Focus</label>
+
+                    {{ form.tomorrow_focus }}
+
+                </div>
+
+            </div>
+
+            <div class="button-area">
+
+                <button class="save-btn">
+
+                    💾 Save Progress
+
+                </button>
+
+            </div>
+
+        </form>
+
+    </main>
+
+</div>
+
+{% endblock %}
